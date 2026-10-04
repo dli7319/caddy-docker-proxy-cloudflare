@@ -97,6 +97,9 @@ jobs:
 
   prune:
     runs-on: ubuntu-latest
+    # Skip on PRs: Dependabot-triggered runs get a read-only GITHUB_TOKEN, so
+    # the packages:write prune call would fail and block auto-merge.
+    if: github.event_name != 'pull_request'
     permissions:
       contents: read
       packages: write
